@@ -359,7 +359,7 @@ if (isset($_POST["btnSubmit"])) {
                             <input type="text" id="txtEmail" name="txtFldCity"
                                    value="<?php print $fldCity; ?>"
                                    tabindex="120" maxlength="45" placeholder="city"
-                                   <?php if ($emailERROR) print 'class="mistake"'; ?>
+                                   <?php if ($firstNameERROR) print 'class="mistake"'; ?>
                                    onfocus="this.select()" 
                                    >
                         </label>
@@ -386,12 +386,3 @@ if (isset($_POST["btnSubmit"])) {
 
 </body>
 </html>
-
-<?php
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
