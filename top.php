@@ -41,6 +41,8 @@ require_once('lib/custom-functions.php');
 
         require_once('lib/security.php');
         
+        require_once('lib/formSecurity.php');
+        
         require_once($includeDBPath . 'Database.php');
         
         // %^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%

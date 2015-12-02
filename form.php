@@ -8,7 +8,7 @@ include "top.php";
 // SECTION: 1a.
 // variables for the classroom purposes to help find errors.
 
-$debug = false;
+$debug = true;
 
 if (isset($_GET["debug"])) { // ONLY do this in a classroom environment
     $debug = true;
@@ -68,12 +68,13 @@ if (isset($_POST["btnSubmit"])) {
     //
     // SECTION: 2a Security
     // 
+    print"<p>debug 1</p>";
     if (!formSecurityCheck(true)) {
         $msg = "<p>Sorry you cannot access this page. ";
         $msg.= "Security breach detected and reported</p>";
         die($msg);
     }
-    
+    print"<p>debug 2</p>";
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     //
     // SECTION: 2b Sanitize (clean) data 
@@ -85,7 +86,8 @@ if (isset($_POST["btnSubmit"])) {
     
     $fldName = filter_var($_POST["txtFldName"], FILTER_SANITIZE_EMAIL);
     $dataRecord[] = $fldName;
-
+    
+    print"<p>debug 3</p>";
 
 //    $fldEmail = filter_var($_POST["txtFldEmail"], FILTER_SANITIZE_EMAIL);
 //    $dataRecord[] = $fldEmail;
@@ -125,7 +127,7 @@ if (isset($_POST["btnSubmit"])) {
         $emailERROR = true;
     }
 
-
+    print"<p>debug 4</p>";
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     //
     // SECTION: 2d Process Form - Passed Validation
@@ -133,6 +135,7 @@ if (isset($_POST["btnSubmit"])) {
     // Process for when the form passes validation (the errorMsg array is empty)
     //
     if (!$errorMsg) {
+        print"<p>debug 5</p>";
         if ($debug)
             print "<p>Form is valid</p>";
 
@@ -222,7 +225,9 @@ if (isset($_POST["btnSubmit"])) {
     // 
     // If its the first time coming to the form or there are errors we are going
     // to display the form.
+    print"<p>debug 6</p>";
     if (isset($_POST["btnSubmit"]) AND empty($errorMsg)) { // closing of if marked with: end body submit
+        print"<p>debug 7</p>";
         print "<h1>Values garnered from user input... ";
         print $userID;
         print "<br>";
@@ -242,6 +247,7 @@ if (isset($_POST["btnSubmit"])) {
         
         print '<br>';
         print $userIDInsert;
+        print"<p>debug 8</p>";
         
         //$dbArray = $thisDatabaseWriter->insert($userIDInsert, "", 0, 0, 14, 0, false, false);
         
@@ -261,6 +267,7 @@ if (isset($_POST["btnSubmit"])) {
 
         //print $message;
     } else {
+        print"<p>debug 9</p>";
 
 
         //####################################
@@ -270,6 +277,7 @@ if (isset($_POST["btnSubmit"])) {
         // display any error messages before we print out the form
 
         if ($errorMsg) {
+            print"<p>debug 10</p>";
             print '<div id="errors">';
             print "<ol>\n";
             foreach ($errorMsg as $err) {
