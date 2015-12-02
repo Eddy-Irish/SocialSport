@@ -26,21 +26,35 @@ header{
 header .float_left{
     margin-top: 0;
 }
+p{
+    text-align: left;
+    font-family: times, Times New Roman, times-roman, georgia, serif;
+    font-size: 20px;
+    position: absolute;
+    top: 250px;
+    left: 25px;
+}
 
 header h1{
     padding-bottom: 2em;
     padding-top: 75px;
 }
 
-header h2{
+h2{
     font-family: times, Times New Roman, times-roman, georgia, serif;
-    color: #444;
+    color: black;
     margin: 0;
-    padding: 0px 0px 6px 0px;
+    padding: 0px 0px 0px 0px;
     font-size: 51px;
     line-height: 44px;
     letter-spacing: -2px;
     font-weight: bold;
+    text-align: center;
+    
+}
+
+form{
+    padding-top: 200px;
 }
 
 img{
@@ -74,10 +88,24 @@ section{
 
 /*------------------------   nav section only  ------------------------------ */
 nav ol li{
-    display: inline-block;
+    display: inline;
     list-style-type: none;
-    padding-right: 2em;
+    padding-right: 100px;
+    width: 60px;
+    margin: 10px;
+    text-align: center;
 }
+a {
+    display: inline;
+    list-style-type: none;
+    padding-right: 100px;
+    width: 60px;
+    margin: 10px;
+    text-align: center;
+    
+    
+}
+
 
 /*------------------------   table page  only  ------------------------------ */
 #table aside{

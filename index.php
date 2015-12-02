@@ -9,7 +9,8 @@ include "top.php";
 
 // Begin output
 print '<article>';
-print '<h2>Sample Page</h2>';
+print '<p>Welcome to SocialSport, where you can find out where sports are being watched<br><br>'
+      . 'To get started click on the sign up link in the navigation bar</p>';
 print '</article>';
 //include "footer.php";
 ?>

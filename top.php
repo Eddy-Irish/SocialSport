@@ -84,7 +84,7 @@ require_once('lib/custom-functions.php');
         // I have an array of check boxes so i would have to sanatize that, here
         // i skip it.
 
-        $spaceAllowedPages = array("form.php");
+        //$spaceAllowedPages = array("form.php");
 
         if (!empty($_GET)) {
             $_GET = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
@@ -131,7 +131,7 @@ require_once('lib/custom-functions.php');
     echo '<link rel="stylesheet" href="css/base.css" type="text/css" media="screen">';
     print '<body id="' . $path_parts['filename'] . '">';
     include "header.php";
-    //include "nav.php";
+    include "nav.php";
     ?><?php
 
 /* 

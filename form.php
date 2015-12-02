@@ -31,8 +31,11 @@ $yourURL = $domain . $phpSelf;
 //
 // Initialize variables one for each form element
 // in the order they appear on the form
-$firstName = "";
-$email = "";
+$userID = "";
+$fldName = "";
+//$fldEmail = "";
+//$fldState = "";
+//$fldCity = "";
 
 
 //%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
@@ -77,25 +80,22 @@ if (isset($_POST["btnSubmit"])) {
     // remove any potential JavaScript or html code from users input on the
     // form. Note it is best to follow the same order as declared in section 1c.
 
-    $netID = htmlentities($_POST["txtNetID"], ENT_QUOTES, "UTF-8");
-    $dataRecord[] = $netID;
+    $userID = htmlentities($_POST["txtUserID"], ENT_QUOTES, "UTF-8");
+    $dataRecord[] = $userID;
     
-    $advisorID = filter_var($_POST["txtAdvisorID"], FILTER_SANITIZE_EMAIL);
-    $dataRecord[] = $advisorID;
+    $fldName = filter_var($_POST["txtFldName"], FILTER_SANITIZE_EMAIL);
+    $dataRecord[] = $fldName;
 
 
-    $email = filter_var($_POST["txtEmail"], FILTER_SANITIZE_EMAIL);
-    $dataRecord[] = $email;
+//    $fldEmail = filter_var($_POST["txtFldEmail"], FILTER_SANITIZE_EMAIL);
+//    $dataRecord[] = $fldEmail;
+//    
+//    $fldState = filter_var($_POST["txtFldState"], FILTER_SANITIZE_EMAIL);
+//    $dataRecord[] = $fldState;
+//    
+//    $fldCity = filter_var($_POST["txtFldCity"], FILTER_SANITIZE_EMAIL);
+//    $dataRecord[] = $fldCity;
     
-    $major = filter_var($_POST["Major"], FILTER_SANITIZE_EMAIL);
-    $dataRecord[] = $major;
-    
-    $minor = filter_var($_POST["minor"], FILTER_SANITIZE_EMAIL);
-    $dataRecord[] = $minor;
-    
-    $catalogYear = filter_var($_POST["CatalogYear"], FILTER_SANITIZE_EMAIL);
-    $dataRecord[] = $catalogYear;
-
 
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     //
@@ -109,19 +109,19 @@ if (isset($_POST["btnSubmit"])) {
     // see section 3b. The error flag ($emailERROR) will be used in section 3c.
 
     
-    if ($netID == "") {
-        $errorMsg[] = "Please enter your first name";
+    if ($userID == "") {
+        $errorMsg[] = "Please enter a User ID";
         $firstNameERROR = true;
-    } elseif (!verifyAlphaNum($netID)) {
-        $errorMsg[] = "Your first name appears to have extra character.";
+    } elseif (!verifyAlphaNum($userID)) {
+        $errorMsg[] = "Your User ID appears to contain a non-alphanumerical character.";
         $firstNameERROR = true;
     }
 
-    if ($email == "") {
-        $errorMsg[] = "Please enter your email address";
+    if ($fldEmail == "") {
+        $errorMsg[] = "Please enter your email";
         $emailERROR = true;
     } elseif (!verifyEmail($email)) {
-        $errorMsg[] = "Your email address appears to be incorrect.";
+        $errorMsg[] = "Incorrect email address";
         $emailERROR = true;
     }
 
@@ -224,28 +224,26 @@ if (isset($_POST["btnSubmit"])) {
     // to display the form.
     if (isset($_POST["btnSubmit"]) AND empty($errorMsg)) { // closing of if marked with: end body submit
         print "<h1>Values garnered from user input... ";
-        print $netID;
+        print $userID;
         print "<br>";
-        print $advisorID;
+        print $fldName;
         print "<br>";
-        print $email;
+        print $fldEmail;
         print "<br>";
-        print $major;
+        print $fldState;
         print "<br>";
-        print $minor;
+        print $fldCity;
         print "<br>";
-        print $catalogYear;
-        print '<br>';
         $default = "default";
         $year = 2012;
-        $studentInsert =  'INSERT INTO tblStudent (pmkNetID, fldName, fldMajor, fldMinor, fldYear, fnkAdvisorID, fldCatalogYear) ';
-        $studentInsert .= 'VALUES (\'' . $netID . '\', \'' . $default . '\', \'' . $major . '\', \'' . $minor . '\', ';
-        $studentInsert .= '' . $year . ', \'' . $advisorID . '\', ' . $catalogYear . ')';
+        $userIDInsert =  'INSERT INTO tblUser (pmkUserID, fldName, fldEmail, fldState, fldCity) ';
+        $userIDInsert .= 'VALUES (\'' . $userID . '\', \'' . $fldName . '\', \'' . $fldEmail . '\', \'' . $fldState . '\', ';
+        $userIDInsert .= '' . $fldCity . ')';
         
         print '<br>';
-        print $studentInsert;
+        print $userIDInsert;
         
-        $dbArray = $thisDatabaseWriter->insert($studentInsert, "", 0, 0, 14, 0, false, false);
+        //$dbArray = $thisDatabaseWriter->insert($userIDInsert, "", 0, 0, 14, 0, false, false);
         
 //        if (!$mailed) {
 //            print "not ";
@@ -261,7 +259,7 @@ if (isset($_POST["btnSubmit"])) {
 //        print "<p>To: " . $email . "</p>";
 //        print "<p>Mail Message:</p>";
 
-        print $message;
+        //print $message;
     } else {
 
 
@@ -310,63 +308,62 @@ if (isset($_POST["btnSubmit"])) {
               id="frmRegister">
 
             <fieldset class="wrapper">
-                <legend>Register Today</legend>
-                <p>You information will greatly help us with our research.</p>
+                <legend>legend</legend>
+                <p>Welcome to SocialSport, fill out the form to create an account.</p>
 
                 <fieldset class="wrapperTwo">
-                    <legend>Please complete the following form</legend>
+                    <legend>Sign-up form</legend>
 
                     <fieldset class="contact">
-                        <legend>Contact Information</legend>
-                        <label for="txtNetID" class="required">Net ID
-                            <input type="text" id="txtFirstName" name="txtNetID"
-                                   value="<?php print $firstName; ?>"
-                                   tabindex="100" maxlength="45" placeholder="Enter your netID"
+                        <legend>User ID</legend>
+                        <label for="txtUserID" class="required">User ID
+                            <input type="text" id="txtUserID" name="txtUserID"
+                                   value="<?php print $userID; ?>"
+                                   tabindex="100" maxlength="45" placeholder="Enter your userID"
                                    <?php if ($firstNameERROR) print 'class="mistake"'; ?>
                                    onfocus="this.select()"
                                    autofocus>
                         </label>
                         
-                        <label for="txtAdvisorID" class="required">Advisor ID
-                            <input type="text" id="txtFirstName" name="txtAdvisorID"
+                        <label for="txtFldName" class="required">Name
+                            <input type="text" id="txtFirstName" name="txtFldName"
                                    value="<?php print $firstName; ?>"
-                                   tabindex="100" maxlength="45" placeholder="Enter your Advisor's netID"
+                                   tabindex="100" maxlength="45" placeholder="Enter your name"
                                    <?php if ($firstNameERROR) print 'class="mistake"'; ?>
                                    onfocus="this.select()"
                                    autofocus>
                         </label>
                         
-                        <label for="txtEmail" class="required">Email
-                            <input type="text" id="txtEmail" name="txtEmail"
-                                   value="<?php print $email; ?>"
-                                   tabindex="120" maxlength="45" placeholder="Enter your UVM email address"
+                        <label for="txtFldEmail" class="required">Email
+                            <input type="text" id="txtEmail" name="txtFldEmail"
+                                   value="<?php print $fldEmail; ?>"
+                                   tabindex="120" maxlength="45" placeholder="Enter your email address"
                                    <?php if ($emailERROR) print 'class="mistake"'; ?>
                                    onfocus="this.select()" 
                                    >
                         </label>
                         
-                        <label for="Major" class="required">Major
-                            <select name="Major">
-                                    <option value="Philosophy">Philosophy</option>
-                                    <option value="Computer Science">Computer Science</option>
-                                    <option value="Math">Math</option>
-                                    <option value="Fiscal Domination">Fiscal Domination</option>
+                        <label for="txtFldState" class="required">State
+                            <select name="txtFldState">
+                                    <option value="CA">CA</option>
+                                    <option value="MA">MA</option>
+                                    <option value="NH">NH</option>
+                                    <option value="NY">NY</option>
+                                    <option value="OR">OR</option>
+                                    <option value="PA">PA</option>
+                                    <option value="VT">VT</option>
                             </select>
                         </label>
                         
-                        <label for="minor" class="required">minor
-                            <select name="minor">
-                                    <option value="Computer Science">Computer Science</option>
-                                    <option value="Philosophy">Philosophy</option>
-                            </select>
+                        <label for="txtFldCity" class="required">Email
+                            <input type="text" id="txtEmail" name="txtFldCity"
+                                   value="<?php print $fldCity; ?>"
+                                   tabindex="120" maxlength="45" placeholder="city"
+                                   <?php if ($emailERROR) print 'class="mistake"'; ?>
+                                   onfocus="this.select()" 
+                                   >
                         </label>
                         
-                        <label for="CatalogYear" class="required">Catalog Year
-                            <select name="CatalogYear">
-                                    <option value="2015">2015</option>
-                                    <option value="2016">2016</option>
-                            </select>
-                        </label>
                     </fieldset> <!-- ends contact -->
                     
                 </fieldset> <!-- ends wrapper Two -->
