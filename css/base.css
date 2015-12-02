@@ -19,6 +19,11 @@ figcaption {
     text-align: center;
 }
 
+img.headerImage {
+    width: 10.8%;
+    height: 125px;
+}
+
 header{
     overflow: auto; /* forces header to fit to figure */
 }

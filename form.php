@@ -89,14 +89,14 @@ if (isset($_POST["btnSubmit"])) {
     
     print"<p>debug 3</p>";
 
-//    $fldEmail = filter_var($_POST["txtFldEmail"], FILTER_SANITIZE_EMAIL);
-//    $dataRecord[] = $fldEmail;
-//    
-//    $fldState = filter_var($_POST["txtFldState"], FILTER_SANITIZE_EMAIL);
-//    $dataRecord[] = $fldState;
-//    
-//    $fldCity = filter_var($_POST["txtFldCity"], FILTER_SANITIZE_EMAIL);
-//    $dataRecord[] = $fldCity;
+    $fldEmail = filter_var($_POST["txtFldEmail"], FILTER_SANITIZE_EMAIL);
+    $dataRecord[] = $fldEmail;
+    
+    $fldState = filter_var($_POST["txtFldState"], FILTER_SANITIZE_EMAIL);
+    $dataRecord[] = $fldState;
+    
+    $fldCity = filter_var($_POST["txtFldCity"], FILTER_SANITIZE_EMAIL);
+    $dataRecord[] = $fldCity;
     
 
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -122,7 +122,7 @@ if (isset($_POST["btnSubmit"])) {
     if ($fldEmail == "") {
         $errorMsg[] = "Please enter your email";
         $emailERROR = true;
-    } elseif (!verifyEmail($email)) {
+    } elseif (!verifyEmail($fldEmail)) {
         $errorMsg[] = "Incorrect email address";
         $emailERROR = true;
     }
