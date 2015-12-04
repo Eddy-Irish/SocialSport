@@ -16,7 +16,11 @@ require_once('lib/custom-functions.php');
         <script src="//html5shim.googlecode.com/sin/trunk/html5.js"></script>
         <![endif]-->
 
-        <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" media="screen">
+        <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/base.css" type="text/css" media="screen">
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
+        <script src="/scripts/jquery.min.js"></script>
+        <script src="/bootstrap/js/bootstrap.min.js"></script>
 
         <?php
         $debug = false;
@@ -132,7 +136,7 @@ require_once('lib/custom-functions.php');
     <!-- **********************     Body section      ********************** -->
     
     <?php
-    echo '<link rel="stylesheet" href="css/base.css" type="text/css" media="screen">';
+    
     print '<body id="' . $path_parts['filename'] . '">';
     include "header.php";
     include "nav.php";

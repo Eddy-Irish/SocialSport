@@ -35,9 +35,7 @@ p{
     text-align: left;
     font-family: times, Times New Roman, times-roman, georgia, serif;
     font-size: 20px;
-    position: absolute;
-    top: 250px;
-    left: 25px;
+    
 }
 
 header h1{
@@ -92,7 +90,7 @@ section{
 }
 
 /*------------------------   nav section only  ------------------------------ */
-nav ol li{
+/*nav ol li{
     display: inline;
     list-style-type: none;
     padding-right: 100px;
@@ -107,10 +105,9 @@ a {
     width: 60px;
     margin: 10px;
     text-align: center;
+    */
     
-    
-}
-
+    /*}*/
 
 /*------------------------   table page  only  ------------------------------ */
 #table aside{
