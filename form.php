@@ -8,7 +8,7 @@ include "top.php";
 // SECTION: 1a.
 // variables for the classroom purposes to help find errors.
 
-$debug = true;
+$debug = false;
 
 if (isset($_GET["debug"])) { // ONLY do this in a classroom environment
     $debug = true;
@@ -32,10 +32,11 @@ $yourURL = $domain . $phpSelf;
 // Initialize variables one for each form element
 // in the order they appear on the form
 $userID = "";
+$fldPassword = "";
 $fldName = "";
-//$fldEmail = "";
-//$fldState = "";
-//$fldCity = "";
+$fldEmail = "";
+$fldState = "";
+$fldCity = "";
 
 
 //%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
@@ -68,13 +69,13 @@ if (isset($_POST["btnSubmit"])) {
     //
     // SECTION: 2a Security
     // 
-    print"<p>debug 1</p>";
+    
     if (!formSecurityCheck(true)) {
         $msg = "<p>Sorry you cannot access this page. ";
         $msg.= "Security breach detected and reported</p>";
         die($msg);
     }
-    print"<p>debug 2</p>";
+    
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     //
     // SECTION: 2b Sanitize (clean) data 
@@ -84,11 +85,12 @@ if (isset($_POST["btnSubmit"])) {
     $userID = htmlentities($_POST["txtUserID"], ENT_QUOTES, "UTF-8");
     $dataRecord[] = $userID;
     
+    $fldPassword = filter_var($_POST["txtFldPassword"], FILTER_SANITIZE_EMAIL);
+    $dataRecord[] = $fldPassword;
+    
     $fldName = filter_var($_POST["txtFldName"], FILTER_SANITIZE_EMAIL);
     $dataRecord[] = $fldName;
     
-    print"<p>debug 3</p>";
-
     $fldEmail = filter_var($_POST["txtFldEmail"], FILTER_SANITIZE_EMAIL);
     $dataRecord[] = $fldEmail;
     
@@ -127,7 +129,7 @@ if (isset($_POST["btnSubmit"])) {
         $emailERROR = true;
     }
 
-    print"<p>debug 4</p>";
+   
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     //
     // SECTION: 2d Process Form - Passed Validation
@@ -135,33 +137,9 @@ if (isset($_POST["btnSubmit"])) {
     // Process for when the form passes validation (the errorMsg array is empty)
     //
     if (!$errorMsg) {
-        print"<p>debug 5</p>";
         if ($debug)
             print "<p>Form is valid</p>";
 
-        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-        //
-        // SECTION: 2e Save Data
-        //
-        // This block saves the data to a CSV file.
-
-        //$fileExt = ".csv";
-
-        //$myFileName = "data/registration";
-
-        //$filename = $myFileName . $fileExt;
-
-        //if ($debug)
-            //print "\n\n<p>filename is " . $filename;
-
-        // now we just open the file for append
-        //$file = fopen($filename, 'a');
-
-        // write the forms informations
-        //fputcsv($file, $dataRecord);
-
-        // close the file
-        //fclose($file);
 
         //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
         //
@@ -170,19 +148,19 @@ if (isset($_POST["btnSubmit"])) {
         // build a message to display on the screen in section 3a and to mail
         // to the person filling out the form (section 2g).
 
-        //$message = '<h2>Your information.</h2>';
+        $message = '';
 
-        //foreach ($_POST as $key => $value) {
+        foreach ($_POST as $key => $value) {
 
-            //$message .= "<p>";
+            $message .= "<p>";
 
-            //$camelCase = preg_split('/(?=[A-Z])/', substr($key, 3));
+            $camelCase = preg_split('/(?=[A-Z])/', substr($key, 3));
 
-            //foreach ($camelCase as $one) {
-                //$message .= $one . " ";
-            //}
-            //$message .= " = " . htmlentities($value, ENT_QUOTES, "UTF-8") . "</p>";
-        //}
+            foreach ($camelCase as $one) {
+                $message .= $one . " ";
+            }
+            $message .= " = " . htmlentities($value, ENT_QUOTES, "UTF-8") . "</p>";
+        }
 
 
         //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -191,10 +169,10 @@ if (isset($_POST["btnSubmit"])) {
         //
         // Process for mailing a message which contains the forms data
         // the message was built in section 2f.
-        $to = $email; // the person who filled out the form
+        $to = $fldEmail; // the person who filled out the form
         $cc = "";
         $bcc = "";
-        $from = "WRONG site <noreply@yoursite.com>";
+        $from = "keohara@uvm.edu";
 
         // subject of mail should make sense to your form
         $todaysDate = strftime("%x");
@@ -219,55 +197,52 @@ if (isset($_POST["btnSubmit"])) {
     //####################################
     //
     // SECTION 3a.
-    //
-    // 
-    // 
     // 
     // If its the first time coming to the form or there are errors we are going
     // to display the form.
-    print"<p>debug 6</p>";
     if (isset($_POST["btnSubmit"]) AND empty($errorMsg)) { // closing of if marked with: end body submit
-        print"<p>debug 7</p>";
-        print "<h1>Values garnered from user input... ";
-        print $userID;
-        print "<br>";
-        print $fldName;
-        print "<br>";
-        print $fldEmail;
-        print "<br>";
-        print $fldState;
-        print "<br>";
-        print $fldCity;
-        print "<br>";
-        $default = "default";
-        $year = 2012;
-        $userIDInsert =  'INSERT INTO tblUser (pmkUserID, fldName, fldEmail, fldState, fldCity) ';
-        $userIDInsert .= 'VALUES (\'' . $userID . '\', \'' . $fldName . '\', \'' . $fldEmail . '\', \'' . $fldState . '\', ';
-        $userIDInsert .= '' . $fldCity . ')';
         
-        print '<br>';
-        print $userIDInsert;
-        print"<p>debug 8</p>";
+//        print "<h1>Values garnered from user input... ";
+//        print $userID;
+//        print "<br>";
+//        print $fldName;
+//        print "<br>";
+//        print $fldEmail;
+//        print "<br>";
+//        print $fldState;
+//        print "<br>";
+//        print $fldCity;
+//        print "<br>";
+//        $default = "default";
+        $userIDInsert =  'INSERT INTO tblUser (pmkUserID, fldPassword, fldName, fldEmail, fldState, fldCity) ';
+        $userIDInsert .= 'VALUES (\'' . $userID . '\', \'' . $fldPassword . '\', \'' . $fldName . '\', \'' . $fldEmail . '\', \'' . $fldState . '\', ';
+        $userIDInsert .= '' . '\'' . $fldCity . '\')';
         
-        //$dbArray = $thisDatabaseWriter->insert($userIDInsert, "", 0, 0, 14, 0, false, false);
         
-//        if (!$mailed) {
-//            print "not ";
-//        }
-//
-//        print "been processed</h1>";
-//
-//        print "<p>A copy of this message has ";
-//        if (!$mailed) {
-//            print "not ";
-//        }
-//        print "been sent</p>";
-//        print "<p>To: " . $email . "</p>";
-//        print "<p>Mail Message:</p>";
+        $dbArray = $thisDatabaseWriter->insert($userIDInsert, "", 0, 0, 12, 0, false, false);
+        
+        if (!$mailed) {
+            print "not ";
+        }
 
-        //print $message;
-    } else {
-        print"<p>debug 9</p>";
+        print "<br><h3>Welcome to SocialSport!</h3><br>";
+        print "<p>A message containing your account information has ";
+        if (!$mailed) {
+            print "not ";
+        }
+        print "been sent</p>";
+        print "<p>To: " . $fldEmail . "</p>";
+        print "<p>ACCOUNT INFORMATION</p>";
+
+        print $message;
+        ?>
+        <div class="container text-center">
+            <a href="#" class="btn btn-info" role="button">Log In</a>
+        </div>
+        <?php
+        } 
+    else {
+        
 
 
         //####################################
@@ -277,7 +252,6 @@ if (isset($_POST["btnSubmit"])) {
         // display any error messages before we print out the form
 
         if ($errorMsg) {
-            print"<p>debug 10</p>";
             print '<div id="errors">';
             print "<ol>\n";
             foreach ($errorMsg as $err) {
@@ -316,18 +290,26 @@ if (isset($_POST["btnSubmit"])) {
               id="frmRegister">
 
             <fieldset class="wrapper">
-                <legend>legend</legend>
                 <p>Welcome to SocialSport, fill out the form to create an account.</p>
 
                 <fieldset class="wrapperTwo">
                     <legend>Sign-up form</legend>
 
                     <fieldset class="contact">
-                        <legend>User ID</legend>
+                        
                         <label for="txtUserID" class="required">User ID
                             <input type="text" id="txtUserID" name="txtUserID"
                                    value="<?php print $userID; ?>"
                                    tabindex="100" maxlength="45" placeholder="Enter your userID"
+                                   <?php if ($firstNameERROR) print 'class="mistake"'; ?>
+                                   onfocus="this.select()"
+                                   autofocus>
+                        </label>
+                        
+                        <label for="txtPassword" class="required">Password
+                            <input type="text" id="txtFldPassword" name="txtFldPassword"
+                                   value="<?php print $fldPassword; ?>"
+                                   tabindex="100" maxlength="45" placeholder="Enter a password"
                                    <?php if ($firstNameERROR) print 'class="mistake"'; ?>
                                    onfocus="this.select()"
                                    autofocus>

@@ -16,7 +16,7 @@ require_once('lib/custom-functions.php');
         <script src="//html5shim.googlecode.com/sin/trunk/html5.js"></script>
         <![endif]-->
 
-        <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/base.css" type="text/css" media="screen">
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
         <script src="/scripts/jquery.min.js"></script>
@@ -116,7 +116,7 @@ require_once('lib/custom-functions.php');
         // Set up database connection
         //
         
-        $dbUserName = get_current_user() . '_reader';
+        $dbUserName = get_current_user() . '_writer';
         $whichPass = "r"; //flag for which one to use.
         $dbName = DATABASE_NAME;
 

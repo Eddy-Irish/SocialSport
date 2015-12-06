@@ -32,6 +32,8 @@ function securityCheck($path_parts, $yourURL, $form = false) {
     $whiteListPages[] = "formSecurity.php";
     $whiteListPages[] = "index2.php";
     $whiteListPages[] = "top.php";
+    $whiteListPages[] = "listings.php";
+    $whiteListPages[] = "logIn.php";
 
     //add all the folders to this array
     $whiteListFolders = array();
