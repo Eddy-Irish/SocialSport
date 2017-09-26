@@ -2,6 +2,7 @@
 /* 
  * Keegan O'Hara
  * File that lists out the currently listed sporting events posted by users
+ * with a couple hard coded for demonstration.
  */
 include "top.php"; ?>
 
