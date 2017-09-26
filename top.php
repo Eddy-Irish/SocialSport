@@ -8,7 +8,6 @@ require_once('lib/custom-functions.php');
         <title>Social Sport</title>
         <meta charset="utf-8">
         <meta name="Keegan" content="O'Hara">
-        <meta name="CS 148" content="CS148 Final Project">
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -57,6 +56,7 @@ require_once('lib/custom-functions.php');
         //  
             
         // sanitize the server global variable
+        
         $_SERVER = filter_input_array(INPUT_SERVER, FILTER_SANITIZE_STRING);
         foreach ($_SERVER as $key => $value) {
             $_SERVER[$key] = sanitize($value, false);
@@ -85,8 +85,8 @@ require_once('lib/custom-functions.php');
         // %^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
         // sanatize global variables 
         // function sanitize($string, $spacesAllowed)
-        // no spaces are allowed on most pages but your form will most likley
-        // need to accept spaces. Notice my use of an array to specfiy whcih 
+        // no spaces are allowed on most pages but the form will most likley
+        // need to accept spaces. Notice my use of an array to specfiy which 
         // pages are allowed.
         // generally our forms dont contain an array of elements. Sometimes
         // I have an array of check boxes so i would have to sanatize that, here
@@ -142,9 +142,5 @@ require_once('lib/custom-functions.php');
     include "nav.php";
     ?><?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
